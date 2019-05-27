@@ -1,4 +1,8 @@
-# Win10 WSL(Ubuntu 16.04)尝试安装gcc5.4.0+crtmpserver记录
+# Win10 WSL(Ubuntu 16.04)尝试安装gcc5.4.0+crtmpserver(失败)记录
+
+### 结论：[Windows下用FFmpeg+nginx+rtmp搭建直播环境 实现推流、拉流（超简单教程）](<https://www.jianshu.com/p/eacfc0a9f2fd>)
+
+
 
 ## 一、安装WSL + 准备工作
 
@@ -72,6 +76,8 @@ make install
 ## 三、安装crtmpserver
 
 ## 出错
+
+[(二)Ubuntu安装开发软件](https://blog.csdn.net/Xin_101/article/details/89356935)
 
 #### 错误1
 
