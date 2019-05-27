@@ -71,7 +71,7 @@ make install
 
 ## 出错
 
-##### 错误1
+#### 错误1
 
 ```shell
 In file included from /root/install/gcc-5.4.0/libgcc/unwind-dw2.c:401:0:
@@ -115,6 +115,45 @@ ucontext.h
 extern int getcontext (ucontext_t *__ucp) __THROWNL;
 ```
 
-##### 错误2
+#### 错误2
 
+…/…/…/…/gcc-6.3.0/libsanitizer/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cc: 在函数‘int __sanitizer::TracerThread(void*)’中:
+…/…/…/…/gcc-6.3.0/libsanitizer/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cc:270:22: 错误： 聚合‘sigaltstack handler_stack’类型不完全，无法被定义
+struct sigaltstack handler_stack;
+
+在路径:`gcc-5.4.0`下查找
+
+```shell
+cd libsanitizer/sanitizer_common
+sudo vim sanitizer_stoptheworld_linux_libcdep.cc
+```
+
+修改xxx行:`struct sigaltstack handler_stack;`为`stack_t handler_stack;`
+在路径:`gcc-5.4.0/`查找
+
+```shell
+cd libsanitizer/sanitizer_common
+sudo vim sanitizer_linux.h
+```
+
+修改xx行和xx行:`uptr internal_sigaltstack(const struct sigaltstack* ss, struct sigaltstack* oss);`为`uptr internal_sigaltstack(const stack_t* ss, stack_t* oss);`
+
+#### 错误3
+
+…/…/…/…/libsanitizer/tsan/tsan_platform_linux.cc: In function ‘int __tsan::ExtractResolvFDs(void*, int*, int)’:
+…/…/…/…/libsanitizer/tsan/tsan_platform_linux.cc:290:16: error: ‘statp’ was not declared in this scope
+
+__res_state *statp = (__res_state*)state;
+^~~~~
+…/…/…/…/libsanitizer/tsan/tsan_platform_linux.cc:290:16: note: suggested alternative: ‘state’
+__res_state *statp = (__res_state*)state;
+
+在路径:`gcc-5.4.0`下查找
+
+```shell
+cd libsanitizer/tsan
+sudo vim tsan_paltform_linux.cc
+```
+
+修改xxx行:`__res_state *statp = (__res_state*)state;`修改为`struct __res_state *statp = (struct __res_state*)state;`
 
