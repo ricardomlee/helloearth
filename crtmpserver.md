@@ -33,7 +33,6 @@ cd install
 
 
 
-
 ## 二、安装gcc 5.4.0
 
 ### 踩坑之路开始
@@ -72,6 +71,9 @@ make install
 
 ## 出错
 
+##### 错误1
+
+```shell
 In file included from /root/install/gcc-5.4.0/libgcc/unwind-dw2.c:401:0:
 ./md-unwind-support.h: In function ‘x86_64_fallback_frame_state’:
 ./md-unwind-support.h:65:47: error: dereferencing pointer to incomplete type ‘struct ucontext’
@@ -89,3 +91,30 @@ make[1]: *** [stage1-bubble] Error 2
 make[1]: Leaving directory '/root/install/gcc-5.4.0/build'
 Makefile:910: recipe for target 'all' failed
 make: *** [all] Error 2
+```
+
+解决：
+
+在`build`路径下找到相应文件:
+
+```shell
+cd build/x86_64-pc-linux-gnu/libgcc
+sudo vim md-unwind-support.h
+```
+
+修改61行:`struct ucontext *uc_ = context->cfa;`修改为`struct ucontext_t *uc_ = context->cfa;`
+定义的结构体形式为:
+
+```c
+struct ucontext_t{};
+```
+
+ucontext.h
+
+```c
+extern int getcontext (ucontext_t *__ucp) __THROWNL;
+```
+
+##### 错误2
+
+
