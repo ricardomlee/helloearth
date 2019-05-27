@@ -38,7 +38,7 @@ cd install
 
 ### 踩坑之路开始
 
-### ![TIM截图20190524211257](C:\Users\Administrator\Desktop\TIM截图20190524211257.png)
+### ![TIM截图20190524211257](TIM截图20190524211257.png)
 
 
 
