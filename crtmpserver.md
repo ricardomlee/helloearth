@@ -2,6 +2,8 @@
 
 ## 一、安装WSL + 准备工作
 
+所有设置 - 更新和安全 - ◉开发者选项
+
 控制面板 - 程序 - 启用或关闭Windows功能 - ✔适用于Linux的Windoews子系统
 
 Microsoft Store - Ubuntu 16.04 LTS - 安装
